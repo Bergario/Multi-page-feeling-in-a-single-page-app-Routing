@@ -10,6 +10,8 @@ export default class Posts extends Component {
     error: false,
   };
   componentDidMount() {
+    console.log(this.props);
+
     Axios.get("/posts")
       .then((response) => {
         const posts = response.data.slice(0, 4);
@@ -29,6 +31,8 @@ export default class Posts extends Component {
     this.setState({ postID });
   }
   render() {
+    console.log(this.props.match.url);
+
     let author = "";
 
     let posts = this.state.posts.map((post) => {
@@ -38,6 +42,7 @@ export default class Posts extends Component {
           key={post.id}
           title={post.title}
           author={post.author}
+          {...this.props}
           clicked={() => this.postSelectedHandler(post.id)}
         />
       );
