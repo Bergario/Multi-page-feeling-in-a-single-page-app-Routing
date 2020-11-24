@@ -16,7 +16,7 @@ export default class Posts extends Component {
       .then((response) => {
         const posts = response.data.slice(0, 4);
         const postUpdate = posts.map((post) => {
-          return { ...post, author: "Bemby" };
+          return { ...post, author: "Bey" };
         });
         this.setState({ posts: postUpdate });
       })
@@ -41,7 +41,7 @@ export default class Posts extends Component {
         <Post
           key={post.id}
           title={post.title}
-          author={post.author}
+          author={author}
           {...this.props}
           clicked={() => this.postSelectedHandler(post.id)}
         />
