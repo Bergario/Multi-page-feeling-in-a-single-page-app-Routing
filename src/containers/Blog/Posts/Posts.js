@@ -39,7 +39,7 @@ export default class Posts extends Component {
     let posts = this.state.posts.map((post) => {
       author = post.author;
       return (
-        <Link to={"/" + post.id} key={post.id}>
+        <Link to={"/post/" + post.id} key={post.id}>
           <Post
             title={post.title}
             author={author}
