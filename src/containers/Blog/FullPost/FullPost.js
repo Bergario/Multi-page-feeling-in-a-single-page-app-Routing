@@ -7,25 +7,27 @@ class FullPost extends Component {
   state = {
     postData: null,
   };
-  componentDidUpdate() {
+  componentDidMount() {
     if (
       !this.state.postData ||
-      (this.state.postData && this.state.postData.id !== this.props.postID)
+      (this.state.postData &&
+        this.state.postData.id !== this.props.match.params.id)
     )
-      Axios.get("/posts/" + this.props.postID).then((response) =>
+      Axios.get("/posts/" + this.props.match.params.id).then((response) =>
         this.setState({ postData: response.data })
       );
   }
 
   deletePostHandler = () => {
-    Axios.delete("/posts/" + this.props.postID).then((response) =>
+    Axios.delete("/posts/" + this.props.match.params.id).then((response) =>
       console.log(response)
     );
   };
 
   render() {
+    console.log(this.props);
     let post = <p style={{ textAlign: "center" }}>Please select a Post!</p>;
-    if (this.props.postID) {
+    if (this.props.match.params.id) {
       post = <p style={{ textAlign: "center" }}>Loading....!</p>;
     }
     if (this.state.postData) {
