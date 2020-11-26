@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Axios from "../../../Axios";
 import Post from "../../../components/Post/Post";
 import classes from "./Posts.module.css";
-import { Link } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
+import FullPost from "../FullPost/FullPost";
 
 export default class Posts extends Component {
   state = {
@@ -32,14 +33,12 @@ export default class Posts extends Component {
     this.setState({ postID });
   }
   render() {
-    console.log(this.props.match.url);
-
     let author = "";
 
     let posts = this.state.posts.map((post) => {
       author = post.author;
       return (
-        <Link to={"/post/" + post.id} key={post.id}>
+        <Link to={"/posts/" + post.id} key={post.id}>
           <Post
             title={post.title}
             author={author}
@@ -59,6 +58,11 @@ export default class Posts extends Component {
     return (
       <div>
         <section className={classes.Posts}>{posts}</section>
+        <Route
+          path={this.props.match.url + "/:id"}
+          exact
+          component={FullPost}
+        />
       </div>
     );
   }
