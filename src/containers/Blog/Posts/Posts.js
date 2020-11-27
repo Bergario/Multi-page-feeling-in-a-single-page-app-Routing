@@ -12,8 +12,6 @@ export default class Posts extends Component {
     error: false,
   };
   componentDidMount() {
-    console.log(this.props);
-
     Axios.get("/posts")
       .then((response) => {
         const posts = response.data.slice(0, 4);

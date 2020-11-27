@@ -9,15 +9,23 @@ class FullPost extends Component {
   };
   componentDidMount() {
     console.log(this.state.postData);
+    this.loadData();
+  }
+
+  componentDidUpdate() {
+    this.loadData();
+  }
+
+  loadData = () => {
     if (
       !this.state.postData ||
       (this.state.postData &&
-        this.state.postData.id !== this.props.match.params.id)
+        this.state.postData.id !== parseFloat(this.props.match.params.id))
     )
       Axios.get("/posts/" + this.props.match.params.id).then((response) => {
         this.setState({ postData: response.data });
       });
-  }
+  };
 
   deletePostHandler = () => {
     Axios.delete("/posts/" + this.props.match.params.id).then((response) =>
@@ -26,7 +34,6 @@ class FullPost extends Component {
   };
 
   render() {
-    console.log(this.props.match.params.id);
     let post = <p style={{ textAlign: "center" }}>Please select a Post!</p>;
     if (this.props.match.params.id) {
       post = <p style={{ textAlign: "center" }}>Loading....!</p>;
